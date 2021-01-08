@@ -1,0 +1,99 @@
+%penyelesaian kasus pemilihan lokasi gudang dengan SAW
+clear;%untuk membersihkan jendela command windows
+x =[...
+		0.75 2000 18 50 500
+		0.50 1500 20 40 450
+		0.90 2050 35 35 800]; % nilai input untuk kriteria
+k = [0 1 0 1 0]; %0= atribut biaya &1= atribut keuntungan
+w = [5 3 4 4 2]; %bobot untuk tiap-tiap kriteria
+[m n]=size (x);  %matrik m x n dengan ukuran sebanyak variabel x (input)
+%tahapan 1. normalisasi matrik
+R=zeros (m,n);% membuat matrik R, yang merupakan matrik kosong
+Y=zeros (m,n);% membuat matrik Y, yang merupakan matrik kosong
+for j=l:n,
+	totx=0;
+	for i=1:m;
+		totx=totx+x(i,j)*x(i,j)
+	end;
+	lx(j)=sqrt (totx);
+	R(:,j)=x(:,j)./lx(j);
+	Y(:,j)=w(j)*R(:,j);
+end;
+%mencari solusi ideal fositif & solusi ideal negatif
+for j=l:n,
+	if k(j)==1,
+		Alplus (j)=max (Y(:,j));
+		A2min (j)=min (Y(:,j));
+	else
+		Alplus (j)=min (Y(:,j));
+		A2min (j)=max (Y(:,j));
+	end;
+end;
+%mencari jarak solusi ideal fositif & solusi ideal negatif
+for i=1:m,
+	D1 (i)=sqrt (sum((Y(i,:)-Alplus (1,:)).^2));
+	D2 (i)=sqrt (sum((Y(i,:)-A2min (1,:)).^2));
+end;
+%menampilkan hasil proses
+disp ('nilai input x=')
+disp (x)
+disp ('bobot yang diberikan w=')
+disp (w)
+disp ('atribut tiap kriteria k=')
+disp (k)
+disp ('bobot yang sudah ternormalisasi W=')
+disp (totx)
+disp ('matrik yang sudah ternormalisasi R=')
+disp (R)
+disp ('matrik ternormalisasi terbobot Y=')
+disp (Y)
+disp ('jarak solusi ideal positif(A+=)')
+disp (Alplus)
+disp ('jarak solusi ideal negatif (A-=)')
+disp (A2min)
+disp ('jarak antara nilai terbobot dengan solusi ideal positif(D+=)')
+disp (D1)
+disp ('jarak antara nilai terbobot dengan solusi ideal negatif(D-=)')
+disp (D2)
+%proses perangkingan
+V=D2./(D1+D2)
+disp ('dalam proses perangkingan mencari jarak')
+disp ('kedekatan setiap alternatif terhadap solusi ideal')
+disp ('dimana alternatif terbaik yang menjadi pilihan ')
+disp ('adalah alternatif yang memiliki nilai preferensi yang TERTINGGI')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
